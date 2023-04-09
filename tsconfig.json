@@ -9,3 +9,22 @@
         "esm": true
     }
 }
+// {
+//     "compilerOptions": {
+//       "sourceMap": true,
+//       "esModuleInterop": true,
+//       "allowJs": true,
+//       "rootDir": "./src",
+//       "noImplicitAny": true,
+//       "moduleResolution": "node",
+//       "skipLibCheck": true,
+//       "target": "es2017",
+//       "module": "ESNext",
+//       "outDir": "dist"
+//     },
+//     "ts-node": {
+//       "esm": true
+//     },
+//     "include": ["src/**/*.ts"],
+//     "exclude": ["node_modules"]
+//   }
