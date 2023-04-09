@@ -31,11 +31,25 @@ function duplicatedEmailError(){
         message: "This email is already in use"
     }
 }
+function gameAlreadyRegistered(){
+    return{
+        name: "GameAlreadyRegistered",
+        message:"This game is already registered"
+    }
+}
+function gameNotFound(){
+    return{
+        name: "GameNotFound",
+        message: "Game not found!"
+    }
+}
 
 export default{
     invalidCredentialsError,
     userNotFound,
     unauthorized,
     incorrectFieldsError,
-    duplicatedEmailError
+    duplicatedEmailError,
+    gameAlreadyRegistered,
+    gameNotFound
 }

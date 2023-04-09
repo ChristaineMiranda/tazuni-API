@@ -5,16 +5,21 @@ import userRepositories from "../repositories/userRepositories.js";
 
 
 export default async function authValidate(req: Request, res: Response, next: NextFunction){
-    console.log("entrei validate")
     const {authorization} = req.headers;
     const token = authorization?.replace("Bearer ", "");
-
+try {
     if(!token){
         throw errors.invalidCredentialsError();
     }
-    const {rows : [user]} = await userRepositories.findSessionByToken(token);
-    res.locals.user = {userId: user.user_id};
-    console.log("finalvalidate")
+    const {rowCount: userExists, rows : [user]} = await userRepositories.findSessionByToken(token);
+    if(!userExists){
+        throw errors.invalidCredentialsError();        
+    }
+    res.locals.user = {userId: user.user_id};    
 
     next();
+} catch (error) {
+    next(error)
+}
+   
 }

@@ -16,10 +16,12 @@ async function createUser(name:string, email: string, password: string) {
 
 async function signIn(email:string, password:string) {
     const {rowCount : userExists, rows: [user]} = await userRepositories.findByEmail(email);
+    
     if(!userExists){
         throw errors.userNotFound();
     }
-    if(!bcrypt.compare(password, user.password)){
+    const validPassword = await bcrypt.compare(password, user.password)
+    if(!validPassword){
         throw errors.invalidCredentialsError();
     }
 
