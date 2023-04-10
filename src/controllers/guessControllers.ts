@@ -13,6 +13,19 @@ async function createGuess(req: Request, res: Response, next: NextFunction) {
     }
 }
 
+async function getGuessesFromUser(req: Request, res: Response, next: NextFunction) {
+    const { user_id: userId } = req.body as { user_id: number };
+
+    try {
+        const list = await guessServices.getGuessesFromUser(userId);
+        return res.status(200).send(list);
+    } catch (error) {
+        next(error);
+    }
+
+}
+
 export default {
-    createGuess
+    createGuess,
+    getGuessesFromUser
 }

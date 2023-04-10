@@ -9,7 +9,12 @@ async function getGuessById(guessId:number) {
     
 }
 
+async function getGuessesFromUser(userId:number) {
+    return await db.query(`SELECT * FROM guess WHERE user_id=$1;`,[userId]);    
+}
+
 export default{
     createGuess,
-    getGuessById
+    getGuessById,
+    getGuessesFromUser
 }

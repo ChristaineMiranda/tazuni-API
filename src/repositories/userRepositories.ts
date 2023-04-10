@@ -18,11 +18,15 @@ async function createSession(id:number, token:string) {
 async function findSessionByToken(token: string){
     return await db.query(`SELECT * FROM sessions WHERE token = $1;`, [token]);
 }
+async function findUserById(userId:number) {
+    return await db.query(`SELECT * FROM users WHERE id=$1;`, [userId]);
+}
 
 export default{
     createUser,
     findByEmail,
     findSessionById,
     createSession, 
-    findSessionByToken
+    findSessionByToken,
+    findUserById
 }
