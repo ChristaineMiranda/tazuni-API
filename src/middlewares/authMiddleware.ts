@@ -15,7 +15,7 @@ try {
     if(!userExists){
         throw errors.invalidCredentialsError();        
     }
-    res.locals.user = {userId: user.user_id};    
+    res.locals.user = user.user_id;    
 
     next();
 } catch (error) {

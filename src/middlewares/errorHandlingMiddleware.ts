@@ -13,10 +13,10 @@ function errorhandlingMiddleware(err, req: Request, res: Response, next: NextFun
     if(err.name === "InvalidCredentialsError" || err.name === "NotFoundError"){
         return res.status(httpStatus.UNAUTHORIZED).send(err.message);
     }
-    if(err.name ="GameAlreadyRegistered"){
-        return res.status(httpStatus.CONFLICT).send(err.message)
+    if(err.name ==="GameAlreadyRegistered"){
+        return res.status(httpStatus.CONFLICT).send(err.message);
     }
-    if(err.name ="GameNotFound"){
+    if(err.name === "GameNotFound"){
         return res.status(httpStatus.NOT_FOUND).send(err.message)
     }
 }
