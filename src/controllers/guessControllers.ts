@@ -25,7 +25,20 @@ async function getGuessesFromUser(req: Request, res: Response, next: NextFunctio
 
 }
 
+async function deleteGuess(req: Request, res: Response, next: NextFunction) {
+    const { guess_id: guessId } = req.body as { guess_id: number }
+    const userId = res.locals.user;
+    try {
+        await guessServices.deleteGuess(userId, guessId);
+        return res.sendStatus(200);
+    } catch (error) {
+        next(error);
+    }
+
+}
+
 export default {
     createGuess,
-    getGuessesFromUser
+    getGuessesFromUser,
+    deleteGuess
 }

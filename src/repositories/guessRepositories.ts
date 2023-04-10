@@ -13,8 +13,13 @@ async function getGuessesFromUser(userId:number) {
     return await db.query(`SELECT * FROM guess WHERE user_id=$1;`,[userId]);    
 }
 
+async function deleteGuess(guessId:number) {
+    await db.query(`DELETE FROM guess WHERE id=$1;`, [guessId]);    
+}
+
 export default{
     createGuess,
     getGuessById,
-    getGuessesFromUser
+    getGuessesFromUser,
+    deleteGuess
 }

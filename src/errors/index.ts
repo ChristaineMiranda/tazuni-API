@@ -43,6 +43,12 @@ function gameNotFound(){
         message: "Game not found!"
     }
 }
+function notFound(){
+    return{
+        name:"NotFound",
+        message:"Not found!"
+    }
+}
 
 export default{
     invalidCredentialsError,
@@ -51,5 +57,6 @@ export default{
     incorrectFieldsError,
     duplicatedEmailError,
     gameAlreadyRegistered,
-    gameNotFound
+    gameNotFound,
+    notFound
 }

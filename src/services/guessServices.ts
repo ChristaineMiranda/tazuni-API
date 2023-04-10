@@ -21,7 +21,20 @@ async function getGuessesFromUser(userId:number) {
     return list;    
 }
 
+async function deleteGuess(userId:number, guessId:number) {
+    const {rowCount: guessExists, rows:[guess]} = await guessRepositories.getGuessById(guessId);
+
+    if(!guessExists){
+        throw errors.notFound();
+    }
+    if(userId !== guess.user_id){
+        throw errors.unauthorized();        
+    }
+    await guessRepositories.deleteGuess(guessId);
+}
+
 export default {
     createGuess,
-    getGuessesFromUser
+    getGuessesFromUser,
+    deleteGuess
 }
