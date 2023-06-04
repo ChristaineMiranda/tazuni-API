@@ -1,25 +1,46 @@
-import db from "../config/database.js";
+import prisma from "../config/database.js";
 
-async function createUser(name: string, email: string, password: string) {
-    await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3);`, [name, email, password]);    
+
+
+async function createUser(name: string, email: string, password: string, foto:string) {
+   return await prisma.user.create({
+        data:{
+            name,
+            email,
+            password,
+            foto
+        }
+    });
 }
 
 async function findByEmail(email:string) {
-    return await db.query(`SELECT * FROM users WHERE email = $1;`, [email]);
-    
+    return await prisma.user.findFirst({
+        where:{ email }
+    });  
 }
 async function findSessionById(id: number) {
-    return await db.query(`SELECT * FROM sessions WHERE user_id = $1;`, [id]);
+    return await prisma.session.findFirst({
+        where: { id }
+    });
 }
 
-async function createSession(id:number, token:string) {
-    await db.query(`INSERT INTO sessions (user_id, token) VALUES ($1, $2);`, [id, token]);
+async function createSession( userId:number, token:string) {
+    return await prisma.session.create({
+        data:{
+            userId,
+            token
+        }        
+    });
 }
 async function findSessionByToken(token: string){
-    return await db.query(`SELECT * FROM sessions WHERE token = $1;`, [token]);
+    return await prisma.session.findFirst({
+        where:{ token }
+    });
 }
-async function findUserById(userId:number) {
-    return await db.query(`SELECT * FROM users WHERE id=$1;`, [userId]);
+async function findUserById(id:number) {
+    return await prisma.user.findFirst({
+        where:{ id }
+    });
 }
 
 export default{

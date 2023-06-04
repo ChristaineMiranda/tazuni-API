@@ -8,6 +8,7 @@ function errorhandlingMiddleware(err, req: Request, res: Response, next: NextFun
         return res.status(httpStatus.CONFLICT).send(err.message);
     }
     if(err.name === "incorrectFieldsError"){
+        console.log(err.message)
         return res.status(httpStatus.UNPROCESSABLE_ENTITY).send(err.message);
     }
     if(err.name === "InvalidCredentialsError" || err.name === "Unauthorized"){

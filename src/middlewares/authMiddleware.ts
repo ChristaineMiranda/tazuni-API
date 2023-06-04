@@ -11,11 +11,11 @@ try {
     if(!token){
         throw errors.invalidCredentialsError();
     }
-    const {rowCount: userExists, rows : [user]} = await userRepositories.findSessionByToken(token);
+    const userExists= await userRepositories.findSessionByToken(token);
     if(!userExists){
         throw errors.invalidCredentialsError();        
     }
-    res.locals.user = user.user_id;    
+    res.locals.user = userExists.id;    
 
     next();
 } catch (error) {

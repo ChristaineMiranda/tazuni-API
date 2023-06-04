@@ -33,7 +33,7 @@ async function deleteGuess(req: Request, res: Response, next: NextFunction) {
         return res.sendStatus(200);
     } catch (error) {
         next(error);
-    }
+    }''
 
 }
 

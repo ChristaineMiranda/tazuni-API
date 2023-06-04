@@ -1,20 +1,31 @@
-import db from "../config/database.js";
+import prisma from "../config/database.js";
 
-async function createGuess(gameId:number, userId:number, score:string) {
-    await db.query(`INSERT INTO guess (game_id, user_id, score) VALUES ($1,$2,$3);`, [gameId, userId, score]);  
+async function createGuess(gameId:number, userId:number, result:string) {
+    await prisma.guess.create({
+        data:{
+            userId,
+            gameId,
+            result
+        }
+    }); 
 }
 
-async function getGuessById(guessId:number) {
-    return await db.query(`SELECT * FROM guess WHERE id=$1;`, [guessId]);
-    
+async function getGuessById(id:number) {
+    return await prisma.guess.findFirst({
+        where:{ id }
+    });    
 }
 
 async function getGuessesFromUser(userId:number) {
-    return await db.query(`SELECT * FROM guess WHERE user_id=$1;`,[userId]);    
+    return await prisma.guess.findFirst({
+        where:{ userId }
+    });
 }
 
-async function deleteGuess(guessId:number) {
-    await db.query(`DELETE FROM guess WHERE id=$1;`, [guessId]);    
+async function deleteGuess(id:number) {
+    await prisma.guess.delete({
+        where:{ id }
+    });    
 }
 
 export default{

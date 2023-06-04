@@ -4,7 +4,8 @@ const signup = joi.object({
     name: joi.string().required(),
     email: joi.string().email().required(),
     password: joi.string().required(),
-    confirmPassword: joi.valid(joi.ref('password')).required()
+    confirmPassword: joi.valid(joi.ref('password')).required(),
+    foto: joi.string().uri()
 });
 const signIn = joi.object({
     email: joi.string().email().required(),

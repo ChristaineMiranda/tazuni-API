@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int          @id @default(autoincrement())
+  name       String       
+  foto       String
+  email      String       @unique @db.VarChar(255)
+  password   String       @db.VarChar(255)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  Session    Session[]
+  Guess     Guess[]
+
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+model Game {
+  id        Int      @id @default(autoincrement())
+  firstTeam String   @db.VarChar(100)
+  secondTeam String  @db.VarChar(100)
+  time       DateTime
+  result     String?   
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Guess     Guess[]
+}
+
+model Guess {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gameId    Int
+  Game      Game    @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  result     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt 
+}
+  
+
